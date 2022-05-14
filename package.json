@@ -2,7 +2,11 @@
   "name": "sennheiser-evolution-wireless",
   "version": "1.0.0",
   "api_version": "1.0.0",
-  "keywords": ["RF"],
+  "keywords": [
+    "RF",
+    "Sennheiser EW",
+    "Sennheiser Evolution Wireless"
+  ],
   "manufacturer": "Sennheiser",
   "product": "Evolution Wireless",
   "shortname": "EW",
@@ -14,12 +18,20 @@
     "watch-ts": "tsc -w",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Fuechschen <me@fuechschen.org>",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "14.17.1",
     "eslint": "^8.15.0",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.4"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Fuechschen/companion-module-sennheiser-evolution-wireless/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fuechschen/companion-module-sennheiser-evolution-wireless.git"
+  },
+  "homepage": "https://github.com/Fuechschen/companion-module-sennheiser-evolution-wireless"
 }

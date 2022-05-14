@@ -156,7 +156,7 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
                 },
                 description: "Set the sensitivity of a EW Wireless SR base unit",
             };
-            actions[Constants.ActionNames.SENSITIVITY_NUDGE] = {
+            actions[Constants.ActionNames.EQUALIZER_SR] = {
                 label: "Equalizer",
                 options: [
                     {
