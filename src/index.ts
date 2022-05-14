@@ -2,12 +2,10 @@ import instance from "../../../instance_skel";
 import {
     CompanionInputField,
     CompanionInputFieldText,
-    CompanionAction,
     CompanionActions, CompanionInputFieldDropdown
 } from "../../../instance_skel_types";
 import {SocketState, UdpSocket} from "./UdpSocket";
 import {Constants} from "./Constants";
-import {forEach} from "lodash";
 
 class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: string, updateRate: string }> {
 
@@ -32,7 +30,7 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
                     default: true
                 }
             ],
-            callback: (args, bank) => {
+            callback: (args) => {
                 this._socket.send(`Mute ${args.options.mute ? "1" : "0"}\r`, this.config.host);
             },
             description: "Set the mute status of a EW Wireless base unit",
@@ -46,7 +44,7 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
                     id: "name",
                 }
             ],
-            callback: (args, bank) => {
+            callback: (args) => {
                 this._socket.send(`Name ${args.options.name}\r`, this.config.host);
             },
             description: "Set the name of a EW Wireless base unit",
@@ -60,8 +58,8 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
                     id: "dir",
                     default: "up",
                     choices: [
-                        {id: 'up', label: 'up'},
-                        {id: 'down', label: 'down'}
+                        {id: "up", label: "up"},
+                        {id: "down", label: "down"}
                     ]
                 },
                 {
@@ -74,7 +72,7 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
                     max: 20,
                 }
             ],
-            callback: (args, bank) => {
+            callback: (args) => {
                 this._socket.send(`Frequency #${args.options.dir === "up" ? "" : "-"}${args.options.steps}\r`, this.config.host);
             },
             description: "Increase or decrease the frequency of a EW Wireless base unit",
@@ -88,7 +86,7 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
                     id: "frequency"
                 }
             ],
-            callback: (args, bank) => {
+            callback: (args) => {
                 this._socket.send(`Frequency ${args.options.frequency.toString().replace(".", "").replace(",", "")}\r`, this.config.host);
             },
             description: "Set the frequency of a EW Wireless base unit. Include leading and trailing zeros (830.2 => 830.200)",
@@ -104,8 +102,8 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
                         id: "dir",
                         default: "up",
                         choices: [
-                            {id: 'up', label: 'up'},
-                            {id: 'down', label: 'down'}
+                            {id: "up", label: "up"},
+                            {id: "down", label: "down"}
                         ]
                     },
                     {
@@ -118,7 +116,7 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
                         max: 20,
                     }
                 ],
-                callback: (args, bank) => {
+                callback: (args) => {
                     this._socket.send(`Sensitivity #${args.options.dir === "up" ? "" : "-"}${args.options.steps}\r`, this.config.host);
                 },
                 description: "Increase or decrease the sensitivity of a EW Wireless SR base unit",
@@ -132,25 +130,25 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
                         id: "sensitivity",
                         default: "-18",
                         choices: [
-                            {id: '0', label: '0'},
-                            {id: '-3', label: '-3'},
-                            {id: '-6', label: '-6'},
-                            {id: '-9', label: '-9'},
-                            {id: '-12', label: '-12'},
-                            {id: '-15', label: '-15'},
-                            {id: '-18', label: '-18'},
-                            {id: '-21', label: '-21'},
-                            {id: '-24', label: '-24'},
-                            {id: '-27', label: '-27'},
-                            {id: '-30', label: '-30'},
-                            {id: '-33', label: '-33'},
-                            {id: '-36', label: '-36'},
-                            {id: '-39', label: '-39'},
-                            {id: '-42', label: '-42'},
+                            {id: "0", label: "0"},
+                            {id: "-3", label: "-3"},
+                            {id: "-6", label: "-6"},
+                            {id: "-9", label: "-9"},
+                            {id: "-12", label: "-12"},
+                            {id: "-15", label: "-15"},
+                            {id: "-18", label: "-18"},
+                            {id: "-21", label: "-21"},
+                            {id: "-24", label: "-24"},
+                            {id: "-27", label: "-27"},
+                            {id: "-30", label: "-30"},
+                            {id: "-33", label: "-33"},
+                            {id: "-36", label: "-36"},
+                            {id: "-39", label: "-39"},
+                            {id: "-42", label: "-42"},
                         ]
                     },
                 ],
-                callback: (args, bank) => {
+                callback: (args) => {
                     console.log(`Sensitivity #${args.options.sensitivity}`);
                     this._socket.send(`Sensitivity ${args.options.sensitivity}\r`, this.config.host);
                 },
@@ -211,7 +209,7 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
                         max: 5,
                     }
                 ],
-                callback: (args, bank) => {
+                callback: (args) => {
                     this._socket.send(`Equalizer #${args.options.enabled ? "1" : "0"} ${args.options.low} ${args.options.lowMid} ${args.options.mid} ${args.options.midHigh} ${args.options.high}\r`, this.config.host);
                 },
                 description: "Set the equalizer EW Wireless SR base unit",
@@ -225,12 +223,12 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
                         id: "mode",
                         default: "1",
                         choices: [
-                            {id: '0', label: 'Mono'},
-                            {id: '1', label: 'Stereo'}
+                            {id: "0", label: "Mono"},
+                            {id: "1", label: "Stereo"}
                         ]
                     }
                 ],
-                callback: (args, bank) => {
+                callback: (args) => {
                     this._socket.send(`Mode ${args.options.mode}\r`, this.config.host);
                 },
                 description: "Set the transmission mode of a EW Wireless SR base unit",
@@ -292,9 +290,9 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
     config_fields(): CompanionInputField[] {
         return [
             ({
-                type: 'textinput',
-                id: 'host',
-                label: 'Target IP',
+                type: "textinput",
+                id: "host",
+                label: "Target IP",
                 regex: this.REGEX_IP
             }) as unknown as CompanionInputFieldText,
             ({
@@ -303,8 +301,8 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
                 label: "device type",
                 default: "SR",
                 choices: [
-                    {id: 'SR', label: 'SR (Transmitter, IEM)'},
-                    {id: 'EM', label: 'EM (Receiver, Mic)'}
+                    {id: "SR", label: "SR (Transmitter, IEM)"},
+                    {id: "EM", label: "EM (Receiver, Mic)"}
                 ]
             }) as CompanionInputFieldDropdown,
             ({
@@ -313,22 +311,22 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
                 label: "Update rate",
                 default: "500",
                 choices: [
-                    {id: '200', label: 'Fast'},
-                    {id: '500', label: 'Medium'},
-                    {id: '1000', label: 'Slow'},
+                    {id: "200", label: "Fast"},
+                    {id: "500", label: "Medium"},
+                    {id: "1000", label: "Slow"},
                 ]
             }) as CompanionInputFieldDropdown];
     }
 
     destroy(): void {
-        console.log('[Sennheiser EW] Destroy called!');
+        console.log("[Sennheiser EW] Destroy called!");
         this._socket.close();
     }
 
     init(): void {
-        console.log('[Sennheiser EW] Init called!');
+        console.log("[Sennheiser EW] Init called!");
         this._socket.on("state", state => {
-            console.log('[Sennheiser EW] state update!', state);
+            console.log("[Sennheiser EW] state update!", state);
             switch (state) {
                 case SocketState.OPENED:
                     this.status(0, "Connected");
@@ -386,7 +384,7 @@ class SennheiserEvolutionWireless extends instance<{ host: string, deviceType: s
     }
 
     updateConfig(config: { host: string, deviceType: string, updateRate: string }): void {
-        console.log('[Sennheiser EW] Config updated', config);
+        console.log("[Sennheiser EW] Config updated", config);
         this.config = config;
         this.registerActions();
         this.registerVariables();

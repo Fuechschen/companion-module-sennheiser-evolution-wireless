@@ -13,7 +13,7 @@ export class UdpSocket extends EventEmitter {
 
     private static _instance;
 
-    private _started: boolean = false;
+    private _started = false;
 
     private _socket: Socket;
 
@@ -38,18 +38,18 @@ export class UdpSocket extends EventEmitter {
             type: "udp4",
         });
 
-        this._socket.on('listening', () => {
+        this._socket.on("listening", () => {
             this.setState(SocketState.OPENED)
             const address = this._socket.address();
             console.log(`[Sennheiser EW] socket listening ${address.address}:${address.port}`);
         });
 
-        this._socket.on('message', (msg, rinfo) => {
+        this._socket.on("message", (msg, rinfo) => {
             //console.log(`[Sennheiser EW] server got: ${msg.toString().replace("\r", "\\r").replace("\n", "\\n")} from ${rinfo.address}:${rinfo.port}`);
             this.emit(`message:${rinfo.address}`, msg, rinfo);
         });
 
-        this._socket.on('error', (err) => {
+        this._socket.on("error", (err) => {
             this.setState(SocketState.ERROR);
             console.log(`[Sennheiser EW] server error:\n${err.stack}`);
         });
